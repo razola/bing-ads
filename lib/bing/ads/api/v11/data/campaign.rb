@@ -30,13 +30,18 @@ module Bing
 
             def self.prepare(campaign_raw)
               if campaign_raw[:bidding_scheme]
-                campaign_raw[:bidding_scheme] = {
-                  # TODO support MaxClicksBiddingScheme, MaxConversionsBiddingScheme and TargetCpaBiddingScheme
-                  type: campaign_raw[:bidding_scheme],
-                  '@xsi:type' => "#{Bing::Ads::API::V11::NAMESPACE_IDENTIFIER}:#{campaign_raw[:bidding_scheme]}"
-                }
                 if campaign_raw[:bidding_scheme] == "TargetCpaBiddingScheme"
-                  campaign_raw[:bidding_scheme][:target_cpa] = 5.0
+                  campaign_raw[:bidding_scheme] = {
+                    type: campaign_raw[:bidding_scheme],
+                    '@xsi:type' => "#{Bing::Ads::API::V11::NAMESPACE_IDENTIFIER}:#{campaign_raw[:bidding_scheme]}",
+                    target_cpa: 5.0,
+                  }
+                else
+                  campaign_raw[:bidding_scheme] = {
+                    # TODO support MaxClicksBiddingScheme, MaxConversionsBiddingScheme and TargetCpaBiddingScheme
+                    type: campaign_raw[:bidding_scheme],
+                    '@xsi:type' => "#{Bing::Ads::API::V11::NAMESPACE_IDENTIFIER}:#{campaign_raw[:bidding_scheme]}"
+                  }
                 end
               end
               # TODO UrlCustomParameters
