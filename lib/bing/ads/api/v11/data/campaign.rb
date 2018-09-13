@@ -35,6 +35,9 @@ module Bing
                   type: campaign_raw[:bidding_scheme],
                   '@xsi:type' => "#{Bing::Ads::API::V11::NAMESPACE_IDENTIFIER}:#{campaign_raw[:bidding_scheme]}"
                 }
+                if campaign_raw[:bidding_scheme] == "TargetCpaBiddingScheme"
+                  campaign_raw[:bidding_scheme][:target_cpa] = 5.0
+                end
               end
               # TODO UrlCustomParameters
               # TODO Settings
