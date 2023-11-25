@@ -49,7 +49,7 @@ module Bing
               raise 'You must provide an operation' if operation.nil?
               begin
                 response = soap_client.call(operation: operation.to_sym, payload: payload)
-                return response.hash
+                return response.to_hash
               rescue Savon::SOAPFault => error
                 fault = error.to_hash[:fault]
 
@@ -95,7 +95,7 @@ module Bing
             #
             # @return Hash with the content of the called method response hash
             def response_body(response, method)
-              response[:envelope][:body]["#{method}_response".to_sym]
+              response["#{method}_response".to_sym]
             end
 
             private
