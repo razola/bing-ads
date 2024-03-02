@@ -40,7 +40,7 @@ module Bing
 
               def prepare_download_entities(levels:)
                 levels = %w[campaign] if levels.nil? || levels.empty?
-                entities = levels.map(&:pluralize).map(&:camelcase)
+                entities = levels.map(&:camelcase)
                 { download_entity: entities }
               end
             end
