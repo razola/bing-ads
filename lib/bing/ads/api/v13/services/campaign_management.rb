@@ -26,6 +26,17 @@ module Bing
               response_body = response_body(response, __method__)
               [response_body[:campaigns][:campaign]].flatten.compact
             end
+            
+            # https://learn.microsoft.com/en-us/advertising/campaign-management-service/getgeolocationsfileurl?view=bingads-13
+            def get_geo_locations_file_url
+              payload = {
+                version:          "2.0",
+                language_locale:  "en",
+                compression_type: "GZip",
+              }
+              response = call(:get_geo_locations_file_url, payload)
+              response_body(response, __method__)
+            end
 
             def add_campaigns(account_id, campaigns)
               validate_limits!(:campaign, :add, campaigns)
